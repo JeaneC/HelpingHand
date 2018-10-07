@@ -1,47 +1,69 @@
-import React, { Component } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import { Icon } from 'react-native-elements'
+import React, { Component } from 'react';
+import { TouchableOpacity, Text, View, Dimensions, Image } from 'react-native';
+import { envelope, home, settings, heart, user } from '../../assets/Icons';
 
-const NavBar = (props) => (
-  <View style={[styles.viewContainer,{backgroundColor: props.backgroundColor}]}>
-      <TouchableOpacity style={styles.leftSideStyle} onPress={() => {
-          if (props.leftButton) props.leftButton()
-      }}>
-        {props.left && <Icon name="chevron-left" color="white" size={40} />}
-      </TouchableOpacity>
-      <Text style={[styles.textStyle, {fontSize: props.labelFont}]}>{props.label}</Text>
-      <TouchableOpacity style={styles.rightSideStyle} onPress={() => {
-        if (props.rightButton) props.rightButton()
-      }}>
-        {props.right && <Icon name="refresh" color="white" size={30} />}
-      </TouchableOpacity>
+const SCREEN_WIDTH = Dimensions.get('window').width;
+
+const NavBar = props => (
+  <View style={styles.TouchableOpacityContainer}>
+    <TouchableOpacity
+      style={styles.box}
+      onPress={() => {
+        props.navigation.navigate('home');
+      }}
+    >
+      <Image source={home} />
+      <Text style={styles.navText}>Home</Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.box}
+      onPress={() => {
+        props.navigation.navigate('notif');
+      }}
+    >
+      <Image source={envelope} />
+      <Text style={styles.navText}>Inbox</Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.box}
+      onPress={() => {
+        props.navigation.navigate('profile');
+      }}
+    >
+      <Image source={user} />
+      <Text style={styles.navText}>Profile</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.box}>
+      <Image source={heart} />
+      <Text style={styles.navText}>Favorite</Text>
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.box}>
+      <Image source={settings} />
+      <Text style={styles.navText}>Settings</Text>
+    </TouchableOpacity>
   </View>
-)
+);
 
 const styles = {
-  viewContainer: {
+  TouchableOpacityContainer: {
+    height: 70,
+    width: SCREEN_WIDTH,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: '#d3d3d3',
+    paddingBottom: 15
+  },
+  box: {
     flex: 1,
-    bottom: 0,
-    paddingTop: 10,
-    backgroundColor: "#06847e",
-    alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    alignItems: 'center'
   },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 22,
-    flex: 6,
-    alignItems: 'center',
-    textAlign: 'center',
-  },
-  rightSideStyle: {
-    flex: 2,
-  },
-  leftSideStyle: {
-    flex: 2,
+  navText: {
+    fontSize: 10,
+    marginTop: 4,
+    color: '#d3d3d3'
   }
-}
+};
 
 export default NavBar;

@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://bi-e73.jeanec.helpinghand.exp.direct",
+  "packagerNgrokUrl": "https://packager.bi-e73.jeanec.helpinghand.exp.direct",
+  "ngrokPid": 13631
 }

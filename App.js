@@ -1,20 +1,49 @@
 import React from 'react';
 import store from './src/store/configureStore';
-import { Provider } from 'react-redux';
-import { StackNavigator } from 'react-navigation';
 
-import { MainScreen, SecondScreen, ThirdScreen } from './src/screens/';
+import { Ionicons } from '@expo/vector-icons';
+import { Provider } from 'react-redux';
+import {
+  createStackNavigator,
+  createBottomTabNavigator
+} from 'react-navigation';
+
+import {
+  MainScreen,
+  NotifScreen,
+  ThirdScreen,
+  ConfirmationScreen,
+  ProfileScreen,
+  HomeScreen,
+  CategoryScreen
+} from './src/screens/';
 
 export default class App extends React.Component {
   render() {
-    const MainNavigator = StackNavigator(
+    const MainNavigator = createStackNavigator(
       {
+        category: {
+          screen: CategoryScreen,
+          navigationOptions: { header: null }
+        },
+        home: {
+          screen: HomeScreen,
+          navigationOptions: { header: null }
+        },
         main: {
           screen: MainScreen,
           navigationOptions: { header: null }
         },
-        second: {
-          screen: SecondScreen,
+        notif: {
+          screen: NotifScreen,
+          navigationOptions: { header: null }
+        },
+        confirmation: {
+          screen: ConfirmationScreen,
+          navigationOptions: { header: null }
+        },
+        profile: {
+          screen: ProfileScreen,
           navigationOptions: { header: null }
         }
       },

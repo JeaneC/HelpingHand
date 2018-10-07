@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Text,
   ScrollView,
+  ImageBackground,
   Image,
   TouchableHighlight,
   TouchableOpacity,
@@ -13,15 +14,18 @@ import { Video } from 'expo';
 import { Button } from 'react-native-elements';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 
+import NavBar from '../components/common/NavBar';
 import MockUp from '../assets/eventmock.png';
 import Modal from 'react-native-modalbox';
 import IRCLink from '../assets/ircVid.mp4';
 import heroImg from '../assets/heroImg.png';
 import callToAction from '../assets/callToAction.png';
+import avatars from '../assets/avatars.png';
 
 import { caro1, caro2, caro3 } from '../assets/carousel';
-
 import { assetOne, assetTwo, assetThree, assetFour } from '../assets/foodBank';
+import { back } from '../assets/Icons';
+import playbutton from '../assets/playbutton.png';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -48,214 +52,263 @@ class MainScreen extends Component {
     console.log('Modal just opened');
   }
 
+  static navigationOptions = {
+    tabBarLabel: 'People',
+    tabBarIcon: ({ tintColor, focused, horizontal }) => (
+      <Ionicons
+        name={focused ? 'ios-people' : 'ios-people-outline'}
+        size={horizontal ? 20 : 26}
+        style={{ color: tintColor }}
+      />
+    )
+  };
+
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <View>
-          <Image source={heroImg} style={{ flex: 1 }} />
-        </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView style={styles.container}>
+          <StatusBar barStyle="light-content" />
+          <View>
+            <ImageBackground
+              source={heroImg}
+              style={{
+                height: 300,
+                display: 'flex',
+                paddingTop: 50
+              }}
+            >
+              <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+                <Image
+                  source={back}
+                  style={{ width: 20, resizeMode: 'contain', marginLeft: 22 }}
+                />
+              </TouchableOpacity>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <TouchableOpacity onPress={() => this.testingImage()}>
+                  <Image
+                    source={playbutton}
+                    style={{
+                      height: 70,
+                      width: 70,
+                      resizeMode: 'cover'
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+            </ImageBackground>
+          </View>
 
-        {/* After Image, Onto Description */}
-        <View style={styles.description}>
-          <View style={styles.descriptionHeader}>
-            <View style={styles.headerLeft}>
-              <Text style={styles.name}>Seattle Food Bank</Text>
-              <Text style={styles.caption}>Bringing food to people</Text>
+          {/* After Image, Onto Description */}
+          <View style={styles.description}>
+            <View style={styles.descriptionHeader}>
+              <View style={styles.headerLeft}>
+                <Text style={styles.name}>Seattle Food Bank</Text>
+                <Text style={styles.caption}>Bringing food to people</Text>
+              </View>
+              <View style={styles.headerRight}>
+                <Text style={styles.caption2}> ♥ 324 &nbsp;</Text>
+              </View>
             </View>
-            <View style={styles.headerRight}>
-              <Text style={styles.caption2}> ♥ 324 &nbsp;</Text>
+          </View>
+
+          {/*  Hours and opportunities  */}
+          <View style={styles.opport}>
+            <View style={styles.opportBox}>
+              <Text style={styles.time1}>18</Text>
+              <Text style={styles.time2}>Hours</Text>
+            </View>
+            <View style={styles.line} />
+            <View style={styles.opportBox}>
+              <Text style={styles.time1}>3</Text>
+              <Text style={styles.time2}>Opportunities</Text>
             </View>
           </View>
-        </View>
 
-        {/*  Hours and opportunities  */}
-        <View style={styles.opport}>
-          <View style={styles.opportBox}>
-            <Text style={styles.time1}>18</Text>
-            <Text style={styles.time2}>Hours</Text>
+          <View style={styles.carousel}>
+            <ScrollView
+              horizontal
+              contentContainerStyle={styles.slidingWindow}
+              showsHorizontalScrollIndicator={false}
+            >
+              <Image source={caro1} style={styles.carStyle} />
+              <Image source={caro2} style={styles.carStyle} />
+              <Image source={caro3} style={styles.carStyle} />
+            </ScrollView>
           </View>
-          <View style={styles.line} />
-          <View style={styles.opportBox}>
-            <Text style={styles.time1}>3</Text>
-            <Text style={styles.time2}>Opportunities</Text>
-          </View>
-        </View>
 
-        <View style={styles.carousel}>
-          <ScrollView
-            horizontal
-            contentContainerStyle={styles.slidingWindow}
-            showsHorizontalScrollIndicator={false}
-          >
-            <Image source={caro1} style={styles.carStyle} />
-            <Image source={caro2} style={styles.carStyle} />
-            <Image source={caro3} style={styles.carStyle} />
-          </ScrollView>
-        </View>
+          <Image source={avatars} style={{ marginBottom: 5 }} />
 
-        <TouchableOpacity
-          style={{
-            width: SCREEN_WIDTH,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 10,
-            marginBottom: 10
-          }}
-        >
-          <Image style={styles.callToActionButton} source={callToAction} />
-        </TouchableOpacity>
-
-        {/* Real Description */}
-        <View style={styles.realDescription}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 10 }}>
-            Description
-          </Text>
-          <Text
+          <TouchableOpacity
             style={{
-              fontSize: 14,
-              color: '#696969',
-              marginTop: 8,
-              lineHeight: 24
+              width: SCREEN_WIDTH,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 10,
+              marginBottom: 10
             }}
+            onPress={() => this.props.navigation.navigate('confirmation')}
           >
-            At Houston Food Bank, we use local resources to bring food to those
-            in need within our community. As a volunteer, you will help with
-            picking, sorting, and packing various food items to ensure each
-            package includes the complete assortment of nutrients.
-          </Text>
-        </View>
+            <Image style={styles.callToActionButton} source={callToAction} />
+          </TouchableOpacity>
 
-        {/* Experience */}
-        <View style={styles.realDescription}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 30 }}>
-            Experience
-          </Text>
+          {/* Real Description */}
+          <View style={styles.realDescription}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 10 }}>
+              Description
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                color: '#696969',
+                marginTop: 8,
+                lineHeight: 24
+              }}
+            >
+              At Seattle Food Bank, we use local resources to bring food to
+              those in need within our community. As a volunteer, you will help
+              with picking, sorting, and packing various food items to ensure
+              each package includes the complete assortment of nutrients.
+            </Text>
+          </View>
 
-          <Text style={{ marginTop: 10 }}>
+          {/* Experience */}
+          <View style={styles.realDescription}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 30 }}>
+              Experience
+            </Text>
+
+            <Text style={{ marginTop: 10 }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#696969',
+                  marginTop: 8,
+                  lineHeight: 24,
+                  fontStyle: 'italic'
+                }}
+              >
+                "I had a great time meeting people who shared the same passion
+                in providing food to thoes in need"
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: 'black',
+                  lineHeight: 24,
+                  fontWeight: 'bold'
+                }}
+              >
+                &nbsp;&nbsp; - Jake
+              </Text>
+            </Text>
+
+            <Text style={{ marginTop: 10 }}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#696969',
+                  lineHeight: 24,
+                  fontStyle: 'italic'
+                }}
+              >
+                "It was interesting to learn about how food bank works."
+              </Text>
+
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: 'black',
+                  lineHeight: 24,
+                  fontWeight: 'bold',
+                  marginBottom: 10
+                }}
+              >
+                - Erica
+              </Text>
+            </Text>
+          </View>
+          {/* Experiences Media */}
+
+          <View style={styles.mediaRow}>
+            <TouchableOpacity style={styles.mediaContent}>
+              <Image source={assetOne} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.mediaContent}>
+              <Image source={assetTwo} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.mediaRow}>
+            <TouchableOpacity style={styles.mediaContent}>
+              <Image source={assetThree} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.mediaContent}>
+              <Image source={assetFour} />
+            </TouchableOpacity>
+          </View>
+
+          {/* FAQ */}
+          <View style={[styles.realDescription, { marginTop: 10 }]}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 30 }}>
+              FAQ
+            </Text>
+
             <Text
               style={{
                 fontSize: 14,
                 color: '#696969',
                 marginTop: 8,
                 lineHeight: 24,
-                fontStyle: 'italic'
+                fontWeight: 'bold'
               }}
             >
-              "I had a great time meeting people who shared the same passion in
-              providing food to thoes in need"
+              Q: Can I bring a friend?
             </Text>
             <Text
               style={{
                 fontSize: 14,
-                color: 'black',
+                color: '#bdbdbd',
                 lineHeight: 24,
                 fontWeight: 'bold'
               }}
             >
-              &nbsp;&nbsp; - Jake
+              A: Yes! You can bring one friend with you.{' '}
             </Text>
-          </Text>
 
-          <Text style={{ marginTop: 10 }}>
             <Text
               style={{
                 fontSize: 14,
                 color: '#696969',
+                marginTop: 16,
                 lineHeight: 24,
-                fontStyle: 'italic'
+                fontWeight: 'bold'
               }}
             >
-              "It was interesting to learn about how food bank works."
+              Q: Where does the food?
             </Text>
-
             <Text
               style={{
                 fontSize: 14,
-                color: 'black',
+                color: '#bdbdbd',
                 lineHeight: 24,
-                fontWeight: 'bold',
-                marginBottom: 10
+                fontWeight: 'bold'
               }}
             >
-              - Erica
+              A: The food from our warehouse is distributed locally to people
+              struggling with hunger within Washington State.
             </Text>
-          </Text>
-        </View>
-        {/* Experiences Media */}
+          </View>
 
-        <View style={styles.mediaRow}>
-          <TouchableOpacity style={styles.mediaContent}>
-            <Image source={assetOne} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.mediaContent}>
-            <Image source={assetTwo} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.mediaRow}>
-          <TouchableOpacity style={styles.mediaContent}>
-            <Image source={assetThree} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.mediaContent}>
-            <Image source={assetFour} />
-          </TouchableOpacity>
-        </View>
+          {/* End */}
+          <Text style={styles.botFooter}>See More</Text>
+        </ScrollView>
 
-        {/* FAQ */}
-        <View style={[styles.realDescription, { marginTop: 10 }]}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 30 }}>
-            FAQ
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 14,
-              color: '#696969',
-              marginTop: 8,
-              lineHeight: 24,
-              fontWeight: 'bold'
-            }}
-          >
-            Q: Can I bring a friend?
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: '#bdbdbd',
-              lineHeight: 24,
-              fontWeight: 'bold'
-            }}
-          >
-            A: Yes! You can bring one friend with you.{' '}
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 14,
-              color: '#696969',
-              marginTop: 16,
-              lineHeight: 24,
-              fontWeight: 'bold'
-            }}
-          >
-            Q: Where does the food?
-          </Text>
-          <Text
-            style={{
-              fontSize: 14,
-              color: '#bdbdbd',
-              lineHeight: 24,
-              fontWeight: 'bold'
-            }}
-          >
-            A: The food from our warehouse is distributed locally to people
-            struggling with hunger within Washington State.
-          </Text>
-        </View>
-
-        {/* End */}
-        <Text style={styles.botFooter}>See More</Text>
-
+        <NavBar navigation={this.props.navigation} />
         {/* Modals */}
         <Modal
           style={[styles.modal, styles.modal3]}
@@ -276,7 +329,7 @@ class MainScreen extends Component {
             style={styles.video}
           />
         </Modal>
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -410,7 +463,8 @@ const styles = {
     textDecorationLine: 'underline',
     marginLeft: 22,
     marginTop: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 20
   },
   mediaContent: {
     backgroundColor: 'grey'
