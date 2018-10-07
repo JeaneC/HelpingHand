@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 5707,
-  "expoServerNgrokUrl": "https://bi-e73.jeanec.helpinghand.exp.direct",
-  "packagerNgrokUrl": "https://packager.bi-e73.jeanec.helpinghand.exp.direct",
-  "ngrokPid": 5728
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
