@@ -20,10 +20,12 @@
 	},
 	"dependencies": {
 		"expo": "^25.0.0",
+		"firebase": "^4.6.0",
 		"react": "16.2.0",
 		"react-native": "0.52.0",
-		"firebase": "^4.6.0",
 		"react-native-elements": "^0.17.0",
+		"react-native-modalbox": "^1.6.0",
+		"react-native-snap-carousel": "^3.7.5",
 		"react-navigation": "^1.0.0-beta.16",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",

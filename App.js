@@ -6,30 +6,26 @@ import { StackNavigator } from 'react-navigation';
 import { MainScreen, SecondScreen, ThirdScreen } from './src/screens/';
 
 export default class App extends React.Component {
-	render() {
-		const MainNavigator = StackNavigator(
-			{
-				main: {
-					screen: MainScreen,
-					navigationOptions: { header: null }
-				},
-				second: {
-					screen: SecondScreen,
-					navigationOptions: { header: null }
-				},
-				third: {
-					screen: ThirdScreen,
-					navigationOptions: { header: null }
-				}
-			},
-			{
-				lazy: true
-			}
-		);
-		return (
-			<Provider store={store}>
-				<MainNavigator />
-			</Provider>
-		);
-	}
+  render() {
+    const MainNavigator = StackNavigator(
+      {
+        main: {
+          screen: MainScreen,
+          navigationOptions: { header: null }
+        },
+        second: {
+          screen: SecondScreen,
+          navigationOptions: { header: null }
+        }
+      },
+      {
+        lazy: true
+      }
+    );
+    return (
+      <Provider store={store}>
+        <MainNavigator />
+      </Provider>
+    );
+  }
 }
